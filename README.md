@@ -1,4 +1,4 @@
-# Magnificent Jobs — Claude plugin
+# Magnificent Jobs — MCP server & Claude plugin
 
 Find live US jobs from Claude by describing the role you want. The plugin connects Claude to the
 [Magnificent Jobs](https://magnificentjobs.com) MCP server — millions of postings pulled straight
@@ -14,6 +14,26 @@ from company career sites (Workday, Greenhouse, Lever, iCIMS, SmartRecruiters �
 
 Or, in Claude.ai / Claude Desktop, add it as a custom connector: **Settings → Connectors → Add
 custom connector** → `https://magnificentjobs.com/mcp` (no authentication).
+
+## Use with any MCP client
+
+The server is remote, read-only and needs no key. Listed in the official MCP Registry as
+`com.magnificentjobs/jobs`. Add it to any client that supports Streamable HTTP:
+
+```json
+{
+  "mcpServers": {
+    "magnificent-jobs": { "type": "http", "url": "https://magnificentjobs.com/mcp" }
+  }
+}
+```
+
+- **Claude Code:** `claude mcp add --transport http magnificent-jobs https://magnificentjobs.com/mcp`
+- **Cursor / Windsurf / VS Code:** paste the JSON above into the MCP settings.
+- **ChatGPT:** install *Magnificent Jobs* from the Plugins directory, or in Developer mode add `https://magnificentjobs.com/mcp`.
+- **Claude.ai / Desktop:** Settings → Connectors → Add custom connector → `https://magnificentjobs.com/mcp`.
+
+Tools: `search_jobs` · `get_job` · `find_cities` · `list_states`. Docs: <https://magnificentjobs.com/developers>.
 
 ## What's inside
 
