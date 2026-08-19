@@ -1,17 +1,30 @@
 {
   "name": "magnificent-jobs",
-  "owner": { "name": "Hcyon Technology", "email": "info@magnificentjobs.com" },
-  "metadata": { "description": "Magnificent Jobs — live US job search for Claude", "version": "1.0.0" },
+  "owner": {
+    "name": "Hcyon Technology"
+  },
+  "metadata": {
+    "description": "Magnificent Jobs \u2014 live US job search for Claude",
+    "version": "1.0.0"
+  },
   "plugins": [
     {
       "name": "magnificent-jobs",
       "source": "./",
       "description": "Find live US jobs by describing the role you want. Read-only MCP server + find-jobs skill.",
       "version": "1.0.0",
-      "author": { "name": "Hcyon Technology", "email": "info@magnificentjobs.com" },
+      "author": {
+        "name": "Hcyon Technology"
+      },
       "homepage": "https://magnificentjobs.com/developers",
       "category": "productivity",
-      "keywords": ["jobs", "job-search", "careers", "hiring", "remote-jobs"]
+      "keywords": [
+        "jobs",
+        "job-search",
+        "careers",
+        "hiring",
+        "remote-jobs"
+      ]
     }
   ]
 }

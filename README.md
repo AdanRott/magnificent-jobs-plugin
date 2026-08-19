@@ -34,7 +34,7 @@ custom connector** → `https://magnificentjobs.com/mcp` (no authentication).
 Searches are sent to magnificentjobs.com to return results and are not stored beyond standard server
 logs. No account, no personal data. Full policy: <https://magnificentjobs.com/privacy> ·
 Terms: <https://magnificentjobs.com/terms> · Docs: <https://magnificentjobs.com/developers> ·
-Support: info@magnificentjobs.com
+Support: info --- at --- magnificentjobs.com
 
 ## License
 

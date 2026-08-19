@@ -4,13 +4,19 @@
   "description": "Find live US jobs by describing the role you want. Searches millions of postings pulled straight from company career sites; read-only, no account needed.",
   "author": {
     "name": "Hcyon Technology",
-    "email": "info@magnificentjobs.com",
     "url": "https://magnificentjobs.com"
   },
   "homepage": "https://magnificentjobs.com/developers",
   "repository": "https://github.com/AdanRott/magnificent-jobs-plugin",
   "license": "MIT",
-  "keywords": ["jobs", "job-search", "careers", "hiring", "remote-jobs", "mcp"],
+  "keywords": [
+    "jobs",
+    "job-search",
+    "careers",
+    "hiring",
+    "remote-jobs",
+    "mcp"
+  ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json"
 }
