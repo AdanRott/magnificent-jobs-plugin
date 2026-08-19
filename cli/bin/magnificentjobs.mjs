@@ -15,7 +15,8 @@ import { createInterface } from "node:readline";
 import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir, platform } from "node:os";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const SITE = "https://magnificentjobs.com";
 const MCP_URL = `${SITE}/mcp`;
@@ -43,6 +44,7 @@ function parseArgs(argv) {
     else if (a === "--type" || a === "-t") o.type = next();
     else if (a === "--limit" || a === "-n") o.limit = next();
     else if (a === "--json") o.json = true;
+    else if (a === "--no-skill") o.noSkill = true;
     else if (a === "--remote") o.arr = "Remote Solely";
     else if (a === "--remote-ok") o.arr = "Remote OK";
     else if (a === "--hybrid") o.arr = "Hybrid";
@@ -62,7 +64,7 @@ ${c.b("magnificentjobs")} — live US job search from your terminal ${c.dim(`(${
   ${c.b("npx magnificentjobs")}                          interactive search
   ${c.b("npx magnificentjobs")} "ICU nurse nights" ${c.dim("[options]")}  one-shot search
   ${c.b("npx magnificentjobs job")} <slug|url>           full details + apply link
-  ${c.b("npx magnificentjobs setup")}                    add the MCP server to Claude Code, Codex, Cursor, Windsurf, Claude Desktop
+  ${c.b("npx magnificentjobs setup")}                    add the MCP server + find-jobs skill to Claude Code, Codex, Cursor, Windsurf (${c.dim("--no-skill")} to skip the skill)
 
 ${c.b("Options")}
   -c, --city "Austin, TX"     results within --radius miles (10 | 30 | 50, default 50)
@@ -212,7 +214,16 @@ function addToJsonConfig(p, label) {
   writeJson(p, cfg);
   return `${label}: added to ${p}`;
 }
-async function setup() {
+const SKILL_SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "skill", "SKILL.md");
+function installSkill(dir, label) {
+  try {
+    const dest = join(dir, "find-jobs", "SKILL.md");
+    mkdirSync(join(dir, "find-jobs"), { recursive: true });
+    writeFileSync(dest, readFileSync(SKILL_SRC, "utf8"));
+    return c.green("✓ ") + `${label}: find-jobs skill → ${dest}`;
+  } catch (e) { return c.dim("• ") + `${label}: could not write skill (${e.message})`; }
+}
+async function setup(o = {}) {
   const home = homedir();
   const out = [];
   // Claude Code
@@ -235,19 +246,26 @@ async function setup() {
     : platform() === "win32" ? join(process.env.APPDATA || join(home, "AppData", "Roaming"), "Claude", "claude_desktop_config.json")
     : join(home, ".config", "Claude", "claude_desktop_config.json");
   if (existsSync(join(cd, ".."))) out.push(c.dim("• ") + "Claude Desktop: add a custom connector in Settings → Connectors → " + MCP_URL + " (remote servers aren't configured via the JSON file)");
+  // The find-jobs skill teaches the model to ask for a resume and search from several
+  // angles (adjacent titles, skills, domain, secondary experience). Claude Code reads
+  // ~/.claude/skills; Codex reads ~/.agents/skills.
+  if (!o.noSkill && existsSync(SKILL_SRC)) {
+    if (has("claude") || existsSync(join(home, ".claude"))) out.push(installSkill(join(home, ".claude", "skills"), "Claude Code"));
+    if (has("codex") || existsSync(join(home, ".codex"))) out.push(installSkill(join(home, ".agents", "skills"), "Codex"));
+  }
   console.log(`\n${c.b("Magnificent Jobs MCP server")} ${c.dim(MCP_URL)}\n`);
   for (const l of out) console.log("  " + l);
-  console.log(`\n  ${c.dim("Then just ask your AI: “find remote senior React jobs with salaries”.")}\n  ${c.dim("ChatGPT: install Magnificent Jobs from the Plugins directory. Docs: " + SITE + "/developers")}\n`);
+  console.log(`\n  ${c.dim("Docs: " + SITE + "/developers")}\n`);
 }
 
 // ── main ─────────────────────────────────────────────────────────────────────
 const o = parseArgs(process.argv.slice(2));
 (async () => {
   try {
-    if (o.version) return console.log("1.0.1");
+    if (o.version) return console.log("1.1.0");
     if (o.help) return help();
     const cmd = o._[0];
-    if (cmd === "setup" || cmd === "init" || cmd === "install") return await setup();
+    if (cmd === "setup" || cmd === "init" || cmd === "install") return await setup(o);
     if (cmd === "job" || cmd === "show") return await jobCmd(o);
     if (cmd === "help") return help();
     if (o._.length || o.city || o.state || o.arr || o.level || o.type) return await oneShot(o);

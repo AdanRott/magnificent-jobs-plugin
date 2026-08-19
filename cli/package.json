@@ -1,6 +1,6 @@
 {
   "name": "magnificentjobs",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "find jobs with our cli using claude code and codex. We scrape the internet every hour to find you jobs linkedin and indeed cant find. also it's free",
   "bin": {
     "magnificentjobs": "bin/magnificentjobs.mjs",
@@ -9,6 +9,7 @@
   "type": "module",
   "files": [
     "bin",
+    "skill",
     "README.md"
   ],
   "engines": {
