@@ -1,15 +1,38 @@
 {
   "name": "magnificentjobs",
-  "version": "1.0.0",
-  "description": "Search 3.5M+ live US job postings from your terminal, and wire the Magnificent Jobs MCP server into Claude Code, Codex, Cursor and more. No key needed.",
-  "bin": { "magnificentjobs": "bin/magnificentjobs.mjs", "mjobs": "bin/magnificentjobs.mjs" },
+  "version": "1.0.1",
+  "description": "Search jobs with Claude Code or Codex \u2014 not LinkedIn, not Indeed. 3.5M+ live US postings straight from company career sites, from your terminal or your AI CLI. No key.",
+  "bin": {
+    "magnificentjobs": "bin/magnificentjobs.mjs",
+    "mjobs": "bin/magnificentjobs.mjs"
+  },
   "type": "module",
-  "files": ["bin", "README.md"],
-  "engines": { "node": ">=18" },
-  "keywords": ["jobs", "job-search", "careers", "mcp", "claude", "codex", "cli", "remote-jobs"],
+  "files": [
+    "bin",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "jobs",
+    "job-search",
+    "careers",
+    "mcp",
+    "claude",
+    "codex",
+    "cli",
+    "remote-jobs"
+  ],
   "homepage": "https://magnificentjobs.com/developers",
-  "repository": { "type": "git", "url": "git+https://github.com/AdanRott/magnificent-jobs-plugin.git", "directory": "cli" },
-  "bugs": { "url": "https://github.com/AdanRott/magnificent-jobs-plugin/issues" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdanRott/magnificent-jobs-plugin.git",
+    "directory": "cli"
+  },
+  "bugs": {
+    "url": "https://github.com/AdanRott/magnificent-jobs-plugin/issues"
+  },
   "author": "Hcyon Technology (https://magnificentjobs.com)",
   "license": "MIT",
   "mcpName": "com.magnificentjobs/jobs"

@@ -1,9 +1,7 @@
-# Magnificent Jobs — MCP server & Claude plugin
+# Magnificent Jobs — search jobs with Claude Code or Codex
 
-Find live US jobs from Claude by describing the role you want. The plugin connects Claude to the
-[Magnificent Jobs](https://magnificentjobs.com) MCP server — millions of postings pulled straight
-from company career sites (Workday, Greenhouse, Lever, iCIMS, SmartRecruiters …), refreshed hourly
-— and ships a `find-jobs` skill that tells Claude how to search well.
+**Not LinkedIn. Not Indeed.** 3.5M+ live US postings pulled straight from company career sites, refreshed hourly, searched by meaning — from your AI CLI or your terminal. No account, no key.
+
 
 ## Install
 

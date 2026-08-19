@@ -244,7 +244,7 @@ async function setup() {
 const o = parseArgs(process.argv.slice(2));
 (async () => {
   try {
-    if (o.version) return console.log("1.0.0");
+    if (o.version) return console.log("1.0.1");
     if (o.help) return help();
     const cmd = o._[0];
     if (cmd === "setup" || cmd === "init" || cmd === "install") return await setup();

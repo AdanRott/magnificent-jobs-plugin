@@ -1,6 +1,8 @@
 # magnificentjobs
 
-Live US job search from your terminal — 3.5M+ postings pulled straight from company career sites,
+**Search jobs with Claude Code or Codex. Not LinkedIn. Not Indeed.**
+
+Live US job search from your terminal and your AI CLI — 3.5M+ postings pulled straight from company career sites,
 searched by meaning. No account, no key.
 
 ```
