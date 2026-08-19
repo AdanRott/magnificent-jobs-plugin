@@ -1,7 +1,7 @@
 {
   "name": "magnificentjobs",
   "version": "1.0.1",
-  "description": "Search jobs with Claude Code or Codex \u2014 not LinkedIn, not Indeed. 3.5M+ live US postings straight from company career sites, from your terminal or your AI CLI. No key.",
+  "description": "find jobs with our cli using claude code and codex. We scrape the internet every hour to find you jobs linkedin and indeed cant find. also it's free",
   "bin": {
     "magnificentjobs": "bin/magnificentjobs.mjs",
     "mjobs": "bin/magnificentjobs.mjs"

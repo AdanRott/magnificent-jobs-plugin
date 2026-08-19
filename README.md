@@ -1,6 +1,11 @@
-# Magnificent Jobs — search jobs with Claude Code or Codex
+**find jobs with our cli using claude code and codex. We scrape the internet every hour to find you jobs linkedin and indeed cant find. also it's free**
 
-**Not LinkedIn. Not Indeed.** 3.5M+ live US postings pulled straight from company career sites, refreshed hourly, searched by meaning — from your AI CLI or your terminal. No account, no key.
+```
+npx magnificentjobs setup      # Claude Code · Codex
+npx magnificentjobs            # terminal
+```
+
+# Magnificent Jobs
 
 
 ## Install
@@ -12,13 +17,6 @@
 
 Or, in Claude.ai / Claude Desktop, add it as a custom connector: **Settings → Connectors → Add
 custom connector** → `https://magnificentjobs.com/mcp` (no authentication).
-
-## Quick start
-
-```
-npx magnificentjobs            # search jobs from your terminal
-npx magnificentjobs setup      # add the MCP server to Claude Code, Codex, Cursor, Windsurf
-```
 
 ## Use with any MCP client
 

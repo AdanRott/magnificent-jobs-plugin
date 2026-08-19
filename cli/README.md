@@ -1,6 +1,6 @@
-# magnificentjobs
+**find jobs with our cli using claude code and codex. We scrape the internet every hour to find you jobs linkedin and indeed cant find. also it's free**
 
-**Search jobs with Claude Code or Codex. Not LinkedIn. Not Indeed.**
+# magnificentjobs
 
 Live US job search from your terminal and your AI CLI — 3.5M+ postings pulled straight from company career sites,
 searched by meaning. No account, no key.
