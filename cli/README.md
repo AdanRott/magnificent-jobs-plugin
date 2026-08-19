@@ -1,6 +1,6 @@
 # magnificentjobs
 
-LIVE JOBS: 3,334,183 · US
+LIVE JOBS: 3,334,183 · ADDED TODAY: 211,021 · US
 
 find jobs with our cli using claude code and codex. We scrape the internet every hour to find you jobs linkedin and indeed cant find. also it's free
 
