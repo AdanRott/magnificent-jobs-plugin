@@ -1,5 +1,4 @@
-<p align="center"><img src="https://magnificentjobs.com/android-chrome-192x192.png" alt="Magnificent Jobs" width="96" height="96"></p>
-<h1 align="center">magnificentjobs</h1>
+# magnificentjobs
 
 find jobs with our cli using claude code and codex. We scrape the internet every hour to find you jobs linkedin and indeed cant find. also it's free
 
