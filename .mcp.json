@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "magnificent-jobs": {
+      "type": "http",
+      "url": "https://magnificentjobs.com/mcp"
+    }
+  }
+}
