@@ -15,6 +15,13 @@ from company career sites (Workday, Greenhouse, Lever, iCIMS, SmartRecruiters �
 Or, in Claude.ai / Claude Desktop, add it as a custom connector: **Settings → Connectors → Add
 custom connector** → `https://magnificentjobs.com/mcp` (no authentication).
 
+## Quick start
+
+```
+npx magnificentjobs            # search jobs from your terminal
+npx magnificentjobs setup      # add the MCP server to Claude Code, Codex, Cursor, Windsurf
+```
+
 ## Use with any MCP client
 
 The server is remote, read-only and needs no key. Listed in the official MCP Registry as
