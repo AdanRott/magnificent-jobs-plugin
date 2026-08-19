@@ -64,6 +64,7 @@ ${c.b("magnificentjobs")} — live US job search from your terminal ${c.dim(`(${
   ${c.b("npx magnificentjobs")}                          interactive search
   ${c.b("npx magnificentjobs")} "ICU nurse nights" ${c.dim("[options]")}  one-shot search
   ${c.b("npx magnificentjobs job")} <slug|url>           full details + apply link
+  ${c.b("npx magnificentjobs mcp")}                      MCP server over stdio (proxies to ${MCP_URL})
   ${c.b("npx magnificentjobs setup")}                    add the MCP server + find-jobs skill to Claude Code, Codex, Cursor, Windsurf (${c.dim("--no-skill")} to skip the skill)
 
 ${c.b("Options")}
@@ -258,6 +259,39 @@ async function setup(o = {}) {
   console.log(`\n  ${c.dim("Docs: " + SITE + "/developers")}\n`);
 }
 
+// ── stdio MCP proxy ──────────────────────────────────────────────────────────
+// `magnificentjobs mcp` speaks MCP over stdio (newline-delimited JSON-RPC) and
+// forwards every message to the hosted Streamable-HTTP server. Lets clients that
+// only support stdio servers (and Glama's Dockerfile checks) use the same tools.
+// The remote server is stateless, so each message is an independent POST.
+async function mcpStdio() {
+  const rl = createInterface({ input: process.stdin, crlfDelay: Infinity });
+  const write = (obj) => process.stdout.write(JSON.stringify(obj) + "\n");
+  const forward = async (msg) => {
+    const r = await fetch(MCP_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json, text/event-stream", "User-Agent": UA + " (stdio)" },
+      body: JSON.stringify(msg),
+    });
+    if (msg.id === undefined) return; // notification: nothing to relay
+    const ct = r.headers.get("content-type") || "";
+    const text = await r.text();
+    if (ct.includes("text/event-stream")) {
+      let last = null;
+      for (const line of text.split("\n")) if (line.startsWith("data:")) { try { const o = JSON.parse(line.slice(5).trim()); if (o && o.id === msg.id) return write(o); last = o; } catch {} }
+      if (last) return write(last);
+    } else if (text) {
+      try { return write(JSON.parse(text)); } catch {}
+    }
+    write({ jsonrpc: "2.0", id: msg.id, error: { code: -32603, message: `Upstream returned ${r.status}` } });
+  };
+  for await (const line of rl) {
+    const t = line.trim(); if (!t) continue;
+    let msg; try { msg = JSON.parse(t); } catch { write({ jsonrpc: "2.0", id: null, error: { code: -32700, message: "Parse error" } }); continue; }
+    forward(msg).catch((e) => { if (msg && msg.id !== undefined) write({ jsonrpc: "2.0", id: msg.id, error: { code: -32603, message: e.message } }); });
+  }
+}
+
 // ── main ─────────────────────────────────────────────────────────────────────
 const o = parseArgs(process.argv.slice(2));
 (async () => {
@@ -267,6 +301,7 @@ const o = parseArgs(process.argv.slice(2));
     const cmd = o._[0];
     if (cmd === "setup" || cmd === "init" || cmd === "install") return await setup(o);
     if (cmd === "job" || cmd === "show") return await jobCmd(o);
+    if (cmd === "mcp" || cmd === "stdio") return await mcpStdio();
     if (cmd === "help") return help();
     if (o._.length || o.city || o.state || o.arr || o.level || o.type) return await oneShot(o);
     if (!process.stdin.isTTY) return help();

@@ -32,6 +32,7 @@ The server is remote, read-only and needs no key. Listed in the official MCP Reg
 ```
 
 - **Claude Code:** `claude mcp add --transport http magnificent-jobs https://magnificentjobs.com/mcp`
+- **stdio-only clients / Docker:** `npx magnificentjobs mcp` speaks MCP over stdio and proxies to the hosted server (`docker build -t magnificentjobs . && docker run -i magnificentjobs`)
 - **Cursor / Windsurf / VS Code:** paste the JSON above into the MCP settings.
 - **ChatGPT:** install *Magnificent Jobs* from the Plugins directory, or in Developer mode add `https://magnificentjobs.com/mcp`.
 - **Claude.ai / Desktop:** Settings → Connectors → Add custom connector → `https://magnificentjobs.com/mcp`.
